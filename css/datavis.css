@@ -54,3 +54,8 @@ footer {
      max-width: 300px;
      padding: 10px;
 }
+
+.pie-chart {
+     max-width: 500px;
+     margin: 0 auto;
+}
