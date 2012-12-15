@@ -9,17 +9,15 @@ $(document).ready(function() {
 			          populate_table(data);
 
 			          /* Gender Pie Chart */
-			          $('<div/>', {id: 'gender_pie', class: 'pie-chart'}).appendTo($('#gender'));
-			          pie_chart(extract_data('gender', data), 'gender_pie');
+			          pie_chart(extract_data('gender', data), 'gender');
 
 			          /* fav_brand Pie Chart */
-			          $('<div/>', {id: 'brand_pie', class: 'pie-chart'}).appendTo($('#fav_brand'));
-			          pie_chart(extract_data('fav_brand', data), 'brand_pie');
+			          pie_chart(extract_data('fav_brand', data), 'fav_brand');
 
 			          /* device Pie Chart */
-			          $('<div/>', {id: 'device_pie', class: 'pie-chart'}).appendTo($('#device'));
-			          pie_chart(extract_data('device', data), 'device_pie');
+			          pie_chart(extract_data('device', data), 'device');
 
+			          /* Create global pointer, to make debugging easier */
 			          tmp = data;
 		          });
 	});
@@ -54,7 +52,7 @@ var extract_data = function(label, data)
 	}
 };
 
-var pie_chart = function(data, div)
+var pie_chart = function(data, container)
 {
         /* Arrange data to required format */
 	/* Array of Arrays [ ['label', value] ... ] */
@@ -77,7 +75,10 @@ var pie_chart = function(data, div)
 
 	d.push([a[a.length-1], count]);
 
-	var plot1 = $.jqplot(div, [d], {
+	/* Create a div instance to render the chart in */
+	$('<div/>', {id: container + '_pie', class: 'pie-chart'}).appendTo($('#' + container));
+
+	var plot1 = $.jqplot(container + '_pie', [d], {
 		seriesDefaults: {
 			// Make this a pie chart.
 			renderer: jQuery.jqplot.PieRenderer,
@@ -87,6 +88,15 @@ var pie_chart = function(data, div)
 		},
 		legend: { show:true, location: 'e' }
 		}
+		);
+
+	$('<div/>', {id: container + '_data', class: 'click-data'}).appendTo($('#' + container));
+	/* Bind a data click to show information */
+	$('#' + container + '_pie').bind('jqplotDataClick',
+	                                 function (ev, seriesIndex, pointIndex, data) {
+		                                 var d = data.toString().split(',');
+		                                 $('#' + container + '_data').html(d[0] + ': ' + d[1]);
+	                                 }
 		);
 };
 

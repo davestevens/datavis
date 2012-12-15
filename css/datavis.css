@@ -59,3 +59,9 @@ footer {
      max-width: 500px;
      margin: 0 auto;
 }
+.click-data {
+     max-width: 300px;
+     margin: 0 auto;
+     text-align: center;
+     min-height: 18px;
+}
