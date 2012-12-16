@@ -7,66 +7,79 @@
     <link rel="stylesheet" href="css/datavis.css" type="text/css">
     <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>-->
     <script src="/js/lib/jquery.1.8.0.min.js" type="text/javascript"></script>
+    <!-- tablesorter -->
     <script src="/js/lib/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <!-- tablesorter -->
+
+    <!-- jqPlot -->
     <script src="/js/lib/dist/jquery.jqplot.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.pieRenderer.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/js/lib/dist/jquery.jqplot.css" />
+    <!-- /jqPlot -->
+
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <!-- /Google Maps -->
     <script src="js/datavis.js"></script>
   </head>
 
   <body>
     <header>
-      Data Visualisation
+      <div class="container">
+	<h1>Data Visualisation</h1>
+      </div>
     </header>
-    <div id="content">
-      <h1>Data</h1>
-      <div id="data">
-	<p>Table view of data from data.json</p>
+    <div class="container">
+      <div id="content">
+	<h2>Data</h2>
+	<div id="data">
+	  <p>Table view of data from data.json</p>
+	</div>
+
+	<h2>Gender</h2>
+	<div id="gender">
+	  <p>Gender data displayed as pie chart. (jqPlot library used)</p>
+	</div>
+
+	<h2>Date of Birth</h2>
+	<div id="dob">
+	  <p></p>
+	</div>
+
+	<h2>Post Code</h2>
+	<div id="postcode">
+	  <p>Post Codes reverse GeoCoded and displayed on a map using GoogleMaps API.</p>
+	</div>
+
+	<h2>Favorite Brand</h2>
+	<div id="fav_brand">
+	  <p>Favorite Brand data displayed as pie chart. (jqPlot library used)</p>
+	</div>
+
+	<h2>Device</h2>
+	<div id="device">
+	  <p>Device data displayed as pie chart. (jqPlot library used)</p>
+	</div>
+
+	<h2>Slider</h2>
+	<div id="slider">
+	  <p></p>
+	</div>
+
+	<h2>Checkbox</h2>
+	<div id="checkbox">
+	  <p></p>
+	</div>
+
+	<h2>Latitude / Longitude</h2>
+	<div id="latitude_longitude">
+	</div>
       </div>
 
-      <h1>Gender</h1>
-      <div id="gender">
-	<p>Gender data displayed as pie chart. (jqPlot library used)</p>
-      </div>
+      <footer>
+      </footer>
 
-      <h1>Date of Birth</h1>
-      <div id="dob">
-	<p></p>
-      </div>
-
-      <h1>Post Code</h1>
-      <div id="postcode">
-	<p></p>
-      </div>
-
-      <h1>Favorite Brand</h1>
-      <div id="fav_brand">
-	<p>Favorite Brand data displayed as pie chart. (jqPlot library used)</p>
-      </div>
-
-      <h1>Device</h1>
-      <div id="device">
-	<p>Device data displayed as pie chart. (jqPlot library used)</p>
-      </div>
-
-      <h1>Slider</h1>
-      <div id="slider">
-	<p></p>
-      </div>
-
-      <h1>Checkbox</h1>
-      <div id="checkbox">
-	<p></p>
-      </div>
-
-      <h1>Latitude / Longitude</h1>
-      <div id="latitude_longitude">
-      </div>
     </div>
-
-    <footer>
-    </footer>
-
   </body>
 
 </html>

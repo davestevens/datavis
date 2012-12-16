@@ -7,11 +7,14 @@ body {
      font-weight: 200;
 }
 
+.container {
+    width: 1024px;
+    margin: 0 auto;
+}
+
 header {
-       font-size: 50px;
-       padding: 10px 0 10px 10px;
+       padding: 10px 0 10px 0;
        background: -webkit-linear-gradient(rgba(191, 191, 191, 1) 0%, rgba(127, 127, 127, 1) 10%, rgba(127, 127, 127, 1) 90%, rgba(191, 191, 191, 1) 100%);
-       color: rgba(255, 255, 255, 1);
 }
 
 #content {
@@ -51,7 +54,6 @@ footer {
      background: rgba(191, 191, 191, 1);
 }
 .tbl td {
-     max-width: 300px;
      padding: 10px;
 }
 
@@ -65,3 +67,36 @@ footer {
      text-align: center;
      min-height: 18px;
 }
+
+.map-view {
+     width: 600px;
+     height: 300px;
+     margin: 0 auto;
+}
+.map {
+     width: 400px;
+     height: 300px;
+     float: left;
+}
+.map-view ul {
+     width: 200px;
+     height: 300px;
+     overflow: auto;
+     list-style: none;
+     padding: 0;
+     margin: 0;
+}
+.map-view ul li {
+     cursor: pointer;
+     padding: 5px;
+}
+
+h1 {
+     font-size: 30px;
+     color: rgba(255, 255, 255, 1);
+}
+h2 {
+     font-size: 20px;
+     text-decoration: underline;
+}
+
