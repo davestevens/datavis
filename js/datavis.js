@@ -7,27 +7,88 @@ var gmaps = [];
 $(document).ready(function() {
 		$.getJSON(data_url,
 		          function(data) {
-			          populate_table(data);
+			          /* Display data in table */
+			          //populate_table(data);
 
 			          /* Gender Pie Chart */
-			          pie_chart(extract_data('gender', data), 'gender');
+			          //pie_chart(extract_data('gender', data), 'gender');
+
+			          /* Date of Birth */
 
 			          /* Post Code Map */
-			          map(extract_data('postcode', data), 'postcode');
+			          //map(extract_data('postcode', data), 'postcode');
 
-			          /* fav_brand Pie Chart */
-			          pie_chart(extract_data('fav_brand', data), 'fav_brand');
+			          /* Favorite Brand Pie Chart */
+			          //pie_chart(extract_data('fav_brand', data), 'fav_brand');
 
-			          /* device Pie Chart */
-			          pie_chart(extract_data('device', data), 'device');
+			          /* Device Pie Chart */
+			          //pie_chart(extract_data('device', data), 'device');
+
+			          /* Slider Bar Chart */
+			          bar_chart(extract_data('slider', data), 'slider');
+
+			          /* Check Box */
 
 			          /* Latitude and Longitude Map */
-			          map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
+			          //map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
 
 			          /* Create global pointer, to make debugging easier */
 			          tmp = data;
 		          });
 	});
+
+/* Create data structure to display data in bar chart -
+   using jqPlot library */
+var bar_chart = function(data, container)
+{
+	/* Plot a bar chart for each item in data */
+	/* Prepare data */
+	var d = [];
+	var series = [];
+	var ticks = [];
+
+	for(var e in data) {
+		d.push(count_instances(data[e]));
+		series.push({label:e});
+	}
+	for(var i in d[0]) {
+		ticks.push(i);
+	}
+
+	/* Create a div instance to render the chart in */
+	$('<div/>', {id: container + '_bar', class: 'chart'}).appendTo($('#' + container));
+
+	var plot1 = $.jqplot(container + '_bar', d, {
+		seriesDefaults:{
+			renderer:$.jqplot.BarRenderer,
+			rendererOptions: {fillToZero: true}
+		},
+		series: series,
+		legend: {
+			show: true,
+			placement: 'outsideGrid'
+			},
+		axes: {
+			xaxis: {
+				renderer: $.jqplot.CategoryAxisRenderer,
+				ticks: ticks
+			},
+			yaxis: {
+				pad: 1.05,
+				tickOptions: {formatString: '%d'}
+			}
+		}
+		});
+
+	$('<div/>', {id: container + '_data', class: 'chart-data'}).appendTo($('#' + container));
+	/* Bind a data click to show information */
+	$('#' + container + '_bar').bind('jqplotDataClick',
+	                         function (ev, seriesIndex, pointIndex, data) {
+		                         var d = data.toString().split(',');
+		                         $('#' + container + '_data').html(d[0] + ': ' + d[1]);
+	                         }
+		);
+};
 
 /*
   Use label to retreive certain dataset from data
@@ -114,38 +175,20 @@ var map = function(data, container)
 			}
 		}
 	}
-}
+};
 
 /* Create correct data structure and create containers -
    for instance of jqPlot PieChart
 */
 var pie_chart = function(data, container)
 {
-	console.log(data);
         /* Arrange data to required format */
 	/* Array of Arrays [ ['label', value] ... ] */
 	for(var e in data) {
-		var d = [];
-		var a = data[e];
-		a.sort();
-
-		var count = 1;
-		for(var i in a) {
-			if(a[i] != a[i-1]) {
-				if((i-1) >= 0) {
-					d.push([a[i-1], count]);
-				}
-				count = 1;
-			}
-			else {
-				++count;
-			}
-		}
-
-		d.push([a[a.length-1], count]);
+		var d = count_instances(data[e]);
 
 		/* Create a div instance to render the chart in */
-		$('<div/>', {id: e + '_pie', class: 'pie-chart'}).appendTo($('#' + container));
+		$('<div/>', {id: e + '_pie', class: 'chart'}).appendTo($('#' + container));
 
 		var plot1 = $.jqplot(e + '_pie', [d], {
 			seriesDefaults: {
@@ -159,7 +202,7 @@ var pie_chart = function(data, container)
 			}
 			);
 
-		$('<div/>', {id: e + '_data', class: 'click-data'}).appendTo($('#' + container));
+		$('<div/>', {id: e + '_data', class: 'chart-data'}).appendTo($('#' + container));
 		/* Bind a data click to show information */
 		$('#' + e + '_pie').bind('jqplotDataClick',
 		                         function (ev, seriesIndex, pointIndex, data) {
@@ -225,3 +268,28 @@ var populate_table = function(data)
 	$('#data').append(tbl);
 	$('#tbl').tablesorter();
 };
+
+/* Return array of label:data pairs
+   Count instances of occurences in a
+ */
+var count_instances = function(a)
+{
+	var d = [];
+	a.sort();
+
+	var count = 1;
+	for(var i in a) {
+		if(a[i] != a[i-1]) {
+			if((i-1) >= 0) {
+				d.push([a[i-1], count]);
+			}
+			count = 1;
+		}
+		else {
+			++count;
+		}
+	}
+	d.push([a[a.length-1], count]);
+
+	return d;
+}

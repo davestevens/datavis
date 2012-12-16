@@ -57,15 +57,20 @@ footer {
      padding: 10px;
 }
 
-.pie-chart {
+.chart {
      max-width: 500px;
      margin: 0 auto;
 }
-.click-data {
+.chart-data {
      max-width: 300px;
      margin: 0 auto;
      text-align: center;
      min-height: 18px;
+}
+
+.chart {
+     max-width: 500px;
+     margin: 0 auto;
 }
 
 .map-view {

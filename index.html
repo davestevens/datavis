@@ -14,11 +14,14 @@
     <!-- jqPlot -->
     <script src="/js/lib/dist/jquery.jqplot.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.pieRenderer.min.js"></script>
+    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.barRenderer.min.js"></script>
+    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.pointLabels.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/js/lib/dist/jquery.jqplot.css" />
     <!-- /jqPlot -->
 
     <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>-->
     <!-- /Google Maps -->
     <script src="js/datavis.js"></script>
   </head>
@@ -48,7 +51,7 @@
 
 	<h2>Post Code</h2>
 	<div id="postcode">
-	  <p>Post Codes reverse GeoCoded and displayed on a map using GoogleMaps API.</p>
+	  <p>Post Codes GeoCoded and displayed on a map using GoogleMaps API.</p>
 	</div>
 
 	<h2>Favorite Brand</h2>
@@ -63,7 +66,7 @@
 
 	<h2>Slider</h2>
 	<div id="slider">
-	  <p></p>
+	  <p>Slider data displayed as pie chart. (jqPlot library used)</p>
 	</div>
 
 	<h2>Checkbox</h2>
@@ -73,6 +76,7 @@
 
 	<h2>Latitude / Longitude</h2>
 	<div id="latitude_longitude">
+	  <p>Latitude and Longitudes displayed on a map using GoogleMaps API.</p>
 	</div>
       </div>
 
