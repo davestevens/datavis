@@ -21,17 +21,17 @@ $(document).ready(function() {
 			          /* Favorite Brand Pie Chart */
 			          //pie_chart(extract_data('fav_brand', data), 'fav_brand');
 			          /* Favorite Brand Circles */
-			          weighted_circles(extract_data('fav_brand', data), 'fav_brand_circles', {radius: 85, padding: 1});
+			          //weighted_circles(extract_data('fav_brand', data), 'fav_brand_circles', {radius: 85, padding: 1});
 
 			          /* Device Pie Chart */
 			          //pie_chart(extract_data('device', data), 'device');
 			          /* Device Circles */
-			          weighted_circles(extract_data('device', data), 'device_circles');
+			          //weighted_circles(extract_data('device', data), 'device_circles');
 
 			          /* Slider Bar Chart */
 			          //bar_chart(extract_data('slider', data), 'slider');
 			          /* Slider Circles */
-			          weighted_circles(extract_data('slider', data), 'slider_circles', {radius: 30, padding: 5, colors:['rgba(255, 255, 255, 1)']});
+			          //weighted_circles(extract_data('slider', data), 'slider_circles', {radius: 30, padding: 5, colors:['rgba(255, 255, 255, 1)']});
 
 			          /* Check Box Venn Diagram */
 			          //venn_diagram(extract_data(['user', 'checkbox'], data), 'checkbox');
@@ -39,10 +39,37 @@ $(document).ready(function() {
 			          /* Latitude and Longitude Map */
 			          //map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
 
+			          /* Favorite Brand / Gender */
+			          weighted_circle_pie(data, ['fav_brand', 'gender'], 'fav_brand_gender', {padding: 2, radius: 80});
+
 			          /* Create global pointer, to make debugging easier */
 			          tmp = data;
 		          });
 	});
+
+var weighted_circle_pie = function(data, sets, container, params)
+{
+	var c = [];
+	for(var i in data) {
+		if(c[data[i][sets[0]]]) {
+		}
+		else {
+			c[data[i][sets[0]]] = [];
+		}
+
+		/* Update sets within c[data[i][sets[0]]] */
+		if(c[data[i][sets[0]]][data[i][sets[1]]]) {
+			c[data[i][sets[0]]][data[i][sets[1]]]++;
+		}
+		else {
+			c[data[i][sets[0]]][data[i][sets[1]]] = 1;
+		}
+	}
+
+	var w = new wCirclesPie(params);
+	w.data(c);
+	$('#' + container).append(w.draw());
+};
 
 var weighted_circles = function(data, container, params)
 {
