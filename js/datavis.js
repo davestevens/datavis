@@ -20,15 +20,21 @@ $(document).ready(function() {
 
 			          /* Favorite Brand Pie Chart */
 			          //pie_chart(extract_data('fav_brand', data), 'fav_brand');
+			          /* Favorite Brand Circles */
+			          weighted_circles(extract_data('fav_brand', data), 'fav_brand_circles', {radius: 85, padding: 1});
 
 			          /* Device Pie Chart */
 			          //pie_chart(extract_data('device', data), 'device');
+			          /* Device Circles */
+			          weighted_circles(extract_data('device', data), 'device_circles');
 
 			          /* Slider Bar Chart */
 			          //bar_chart(extract_data('slider', data), 'slider');
+			          /* Slider Circles */
+			          weighted_circles(extract_data('slider', data), 'slider_circles', {radius: 30, padding: 5, colors:['rgba(255, 255, 255, 1)']});
 
 			          /* Check Box Venn Diagram */
-			          venn_diagram(extract_data(['user', 'checkbox'], data), 'checkbox');
+			          //venn_diagram(extract_data(['user', 'checkbox'], data), 'checkbox');
 
 			          /* Latitude and Longitude Map */
 			          //map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
@@ -38,6 +44,21 @@ $(document).ready(function() {
 		          });
 	});
 
+var weighted_circles = function(data, container, params)
+{
+	for(var e in data) {
+		var d = count_instances(data[e]);
+		/* Sort by most occuring */
+		d.sort(function(a, b) {
+				if(a[1] === b[1]) { return 0;}
+				return (a[1] > b[1]) ? -1 : 1;
+			});
+
+		var c = new wCircles(params);
+		c.data(d);
+		$('#' + container).append(c.draw());
+	}
+};
 
 /* Prepare data and view for Venn Diagram
  */

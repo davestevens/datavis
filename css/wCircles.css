@@ -1,0 +1,23 @@
+/* wCircles */
+.wCircle {
+  position: absolute;
+  -moz-border-radius: 800px;
+  -webkit-border-radius: 800px;
+  -o-border-radius: 800px;
+  border-radius: 800px;
+  -moz-box-shadow: -1px 1px 3px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: -1px 1px 3px rgba(0, 0, 0, 1);
+  -o-box-shadow: -1px 1px 3px rgba(0, 0, 0, 1);
+  box-shadow: -1px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.wLabel {
+  margin: 0;
+  line-height: 10px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  text-align: center;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  -moz-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  -webkit-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
