@@ -23,11 +23,11 @@ wCirclesPie = (function(params) {
 			var total = 0;
 			for(var i in data) {
 				var size = 0;
-				for(var j in data[i].data) {
-					size += data[i].data[j].data;
+				for(var j in data[i]) {
+					size += data[i][j];
 				}
 				total += size;
-				this.d[data[i].label] = {'size': size, 'radius': '', data: data[i].data};
+				this.d[i] = {'size': size, 'radius': '', data: data[i]};
 			}
 
 			/* Find largest */
@@ -99,7 +99,6 @@ wCirclesPie = (function(params) {
 		wCirclesPie.prototype.draw = function()
 		{
 			var div = $('<div/>', {width: this.width + 'px', height: this.height + 'px', css: {position: 'relative', margin: '0 auto'}});
-			//var c = 0;
 			var leg = [];
 			for(var i in this.d) {
 				var cir = $('<div/>', {class: 'wCirclePie',
@@ -114,10 +113,10 @@ wCirclesPie = (function(params) {
 				var total = 0;
 				for(var j in this.d[i].data) {
 					/* Generate Legend */
-					if(leg[this.d[i].data[j].label] === undefined) {
-						leg[this.d[i].data[j].label] = 1;
+					if(leg[j] === undefined) {
+						leg[j] = 1;
 					}
-					var per = this.d[i].data[j].data / this.d[i].size;
+					var per = this.d[i].data[j] / this.d[i].size;
 					if((total < 180) && ((total + (per * 360)) > 180) && ((per * 360) > 180)) {
 						/* Needs splitting into two sections */
 						/* First create the upto 180 section */
@@ -129,7 +128,7 @@ wCirclesPie = (function(params) {
 						                               'width': (this.d[i].radius * 2),
 						                               'height': (this.d[i].radius * 2),
 						                               'clip': 'rect(0px ' + (this.d[i].radius * 2) + 'px '  + (this.d[i].radius * 2) + 'px ' + this.d[i].radius + 'px)'}});
-						var pie = $('<div/>', {class: 'pie ' + this.d[i].data[j].label,
+						var pie = $('<div/>', {class: 'pie ' + j,
 						                       css: {'-webkit-transform': 'rotate(' + sec1 + 'deg)',
 						                             'width': (this.d[i].radius * 2),
 						                             'height': (this.d[i].radius * 2),
@@ -143,7 +142,7 @@ wCirclesPie = (function(params) {
 						                               'width': (this.d[i].radius * 2),
 						                               'height': (this.d[i].radius * 2),
 						                               'clip': 'rect(0px ' + (this.d[i].radius * 2) + 'px '  + (this.d[i].radius * 2) + 'px ' + this.d[i].radius + 'px)'}});
-						var pie = $('<div/>', {class: 'pie ' + this.d[i].data[j].label,
+						var pie = $('<div/>', {class: 'pie ' + j,
 						                       css: {'-webkit-transform': 'rotate(' + sec2 + 'deg)',
 						                             'width': (this.d[i].radius * 2),
 						                             'height': (this.d[i].radius * 2),
@@ -157,7 +156,7 @@ wCirclesPie = (function(params) {
 						                               'width': (this.d[i].radius * 2),
 						                               'height': (this.d[i].radius * 2),
 						                               'clip': 'rect(0px ' + (this.d[i].radius * 2) + 'px '  + (this.d[i].radius * 2) + 'px ' + this.d[i].radius + 'px)'}});
-						var pie = $('<div/>', {class: 'pie ' + this.d[i].data[j].label,
+						var pie = $('<div/>', {class: 'pie ' + j,
 						                       css: {'-webkit-transform': 'rotate(' + (per * 360) + 'deg)',
 						                             'width': (this.d[i].radius * 2),
 						                             'height': (this.d[i].radius * 2),
