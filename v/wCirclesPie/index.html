@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Data Visualisation / wCirclesPie</title>
+    <link rel="stylesheet" href="/css/datavis.css" type="text/css">
+    <script src="/js/lib/jquery.1.8.0.min.js" type="text/javascript"></script>
+
+    <!-- wCirclesPie -->
+    <link rel="stylesheet" type="text/css" href="/css/wCirclesPie.css" />
+    <script src="/js/wCirclesPie.js"></script>
+    <!-- /wCirclesPie -->
+
+    <!-- Funcs -->
+    <script src="/js/func.js"></script>
+    <!-- /Funcs -->
+
+    <script>
+      $(document).ready(function() {
+        $.getJSON(data_url,
+          function(data) {
+      /* Favorite Brand / Gender */
+      weighted_circle_pie(data, ['fav_brand', 'gender'], 'fav_brand_gender', {padding: 2, radius: 80});
+
+      /* Favorite Brand / Device */
+      weighted_circle_pie(data, ['fav_brand', 'device'], 'fav_brand_device', {padding: 2, radius: 80});
+
+      /* Device / Gender */
+      weighted_circle_pie(data, ['device', 'gender'], 'device_gender', {padding: 2, radius: 80});
+          })
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+	<h1>Data Visualisation / wCirclesPie</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div id="content">
+	<p>wCirclesPie displays data based on the number of occurences within a data set along with the split of a second data set within the first.</p>
+
+	<h2>Favorite Brand / Gender</h2>
+	<div id="fav_brand_gender">
+	</div>
+
+	<h2>Favorite Brand / Device</h2>
+	<div id="fav_brand_device">
+	</div>
+
+	<h2>Device / Gender</h2>
+	<div id="device_gender">
+	</div>
+      </div>
+
+      <footer>
+      </footer>
+
+    </div>
+  </body>
+
+</html>

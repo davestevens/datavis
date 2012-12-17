@@ -11,33 +11,20 @@
     <script src="/js/lib/jquery.tablesorter.min.js" type="text/javascript"></script>
     <!-- tablesorter -->
 
-    <!-- jqPlot -->
-    <link rel="stylesheet" type="text/css" href="/js/lib/dist/jquery.jqplot.css" />
-    <script src="/js/lib/dist/jquery.jqplot.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.pieRenderer.min.js"></script>
-    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.barRenderer.min.js"></script>
-    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-    <script type="text/javascript" src="/js/lib/dist/plugins/jqplot.pointLabels.min.js"></script>
-    <!-- /jqPlot -->
+    <!-- Funcs -->
+    <script src="/js/func.js"></script>
+    <!-- /Funcs -->
 
-    <!-- Google Maps -->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>-->
-    <!-- /Google Maps -->
+    <script>
+      $(document).ready(function() {
+        $.getJSON(data_url,
+          function(data) {
+      /* Display data in table */
+      populate_table(data);
+          })
+      });
+    </script>
 
-    <!-- Venn -->
-    <link rel="stylesheet" type="text/css" href="/css/Venn.css" />
-    <script src="/js/Venn.js"></script>
-    <!-- /Venn -->
-    <!-- wCircles -->
-    <link rel="stylesheet" type="text/css" href="/css/wCircles.css" />
-    <script src="/js/wCircles.js"></script>
-    <!-- /wCircles -->
-    <!-- wCirclesPie -->
-    <link rel="stylesheet" type="text/css" href="/css/wCirclesPie.css" />
-    <script src="/js/wCirclesPie.js"></script>
-    <!-- /wCirclesPie -->
-
-    <script src="js/datavis.js"></script>
   </head>
 
   <body>
@@ -53,66 +40,13 @@
 	  <p>Table view of data from data.json</p>
 	</div>
 
-	<h2>Gender</h2>
-	<div id="gender">
-	  <p>Gender data displayed as pie chart. (jqPlot library used)</p>
-	</div>
-
-	<h2>Date of Birth</h2>
-	<div id="dob">
-	  <p></p>
-	</div>
-
-	<h2>Post Code</h2>
-	<div id="postcode">
-	  <p>Post Codes GeoCoded and displayed on a map using GoogleMaps API.</p>
-	</div>
-
-	<h2>Favorite Brand</h2>
-	<div id="fav_brand">
-	  <p>Favorite Brand data displayed as pie chart. (jqPlot library used)</p>
-	</div>
-	<div id="fav_brand_circles">
-	  <p>Favorite Brand data displayed using weighted circles.</p>
-	</div>
-
-	<h2>Device</h2>
-	<div id="device">
-	  <p>Device data displayed as pie chart. (jqPlot library used)</p>
-	</div>
-	<div id="device_circles">
-	  <p>Device data displayed using weighted circles.</p>
-	</div>
-
-	<h2>Slider</h2>
-	<div id="slider">
-	  <p>Slider data displayed as pie chart. (jqPlot library used)</p>
-	</div>
-	<div id="slider_circles">
-	  <p>Slider data displayed using weighted circles.</p>
-	</div>
-
-	<h2>Checkbox</h2>
-	<div id="checkbox">
-	  <p>Venn Diagram showing similarities of users.</p>
-	  <p>Choose two users to compare.</p>
-	</div>
-
-	<h2>Latitude / Longitude</h2>
-	<div id="latitude_longitude">
-	  <p>Latitude and Longitudes displayed on a map using GoogleMaps API.</p>
-	</div>
-
-	<h2>Favorite Brand / Gender</h2>
-	<div id="fav_brand_gender">
-	  <p>Favorite Brand split by Gender shown using the wCirclePie.</p>
-	</div>
-
-	<h2>Favorite Brand / Device</h2>
-	<div id="fav_brand_device">
-	  <p>Favorite Brand split by Device shown using the wCirclePie.</p>
-	</div>
-
+	<h2>Examples</h2>
+	<p><a href="v/Venn">Venn Diagram</a></p>
+	<p><a href="v/wCircles">Weighted Circles</a></p>
+	<p><a href="v/wCirclesPie">Weighted Circles w/ Pie Chart</a></p>
+	<p><a href="v/jqPlot">jqPlot library (Pie and Bar Chart)</a></p>
+	<p><a href="v/googleMaps">googleMaps views</a></p>
+	<p><a href="a/">All</a></p>
       </div>
 
       <footer>

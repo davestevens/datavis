@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Data Visualisation / googleMaps</title>
+    <link rel="stylesheet" href="/css/datavis.css" type="text/css">
+    <script src="/js/lib/jquery.1.8.0.min.js" type="text/javascript"></script>
+
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <!-- /Google Maps -->
+
+    <!-- Funcs -->
+    <script src="/js/func.js"></script>
+    <!-- /Funcs -->
+
+    <script>
+      $(document).ready(function() {
+        $.getJSON(data_url,
+          function(data) {
+      /* Post Code Map */
+      map(extract_data('postcode', data), 'postcode');
+
+      /* Latitude and Longitude Map */
+      map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
+          })
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+	<h1>Data Visualisation / googleMaps</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div id="content">
+	<p>Lat/Lng and Geocoded addresses displayed on googleMaps.</p>
+	<h2>Post Code</h2>
+	<div id="postcode">
+	</div>
+
+	<h2>Latitude / Longitude</h2>
+	<div id="latitude_longitude">
+	</div>
+      </div>
+
+      <footer>
+      </footer>
+
+    </div>
+  </body>
+
+</html>
