@@ -25,9 +25,10 @@ $(document).ready(function() {
 			          //pie_chart(extract_data('device', data), 'device');
 
 			          /* Slider Bar Chart */
-			          bar_chart(extract_data('slider', data), 'slider');
+			          //bar_chart(extract_data('slider', data), 'slider');
 
-			          /* Check Box */
+			          /* Check Box Venn Diagram */
+			          venn_diagram(extract_data(['user', 'checkbox'], data), 'checkbox');
 
 			          /* Latitude and Longitude Map */
 			          //map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
@@ -36,6 +37,65 @@ $(document).ready(function() {
 			          tmp = data;
 		          });
 	});
+
+
+/* Prepare data and view for Venn Diagram
+ */
+var venn_diagram = function(data, container)
+{
+	/* Requires data in the form {label:'', data:[0,1,2,3]} */
+	var d = [];
+	for(var i in data['user']) {
+		d.push({label: data['user'][i], data: data['checkbox'][i].response});
+	}
+
+	/* Create html page elements */
+	var cont = $('<div/>', {id: container + '_controls', class: 'chart'});
+
+	/* Create three drop down boxes */
+	var select_l = $('<select/>', {id: container + '_left', class: 'venn-sel select-left'});
+	var select_r = $('<select/>', {id: container + '_center', class: 'venn-sel select-right'});
+
+	$('<option/>', {value: '', text: 'Select User'}).appendTo(select_l);
+	$('<option/>', {value: '', text: 'Select User'}).appendTo(select_r);
+
+	for(var i in d) {
+		$('<option/>', {value: JSON.stringify(d[i]), text: d[i].label}).appendTo(select_l);
+		$('<option/>', {value: JSON.stringify(d[i]), text: d[i].label}).appendTo(select_r);
+	}
+
+	cont.append(select_l);
+	cont.append(select_r);
+	$('#' + container).append(cont);
+	$('<div/>', {id: container + '_venn', class: 'chart'}).appendTo($('#' + container));
+
+	/* Link venn-sel select options to trigger new Venn drawing */
+	$('.venn-sel').change(function() {
+			var container = $(this).parent().parent().attr('id');
+			var v = new Venn({elementSize: 18, elementPadding: 2});
+			var venn_data = [];
+			$('#' + container + ' .venn-sel').each(function() {
+					if($(this).val() != '') {
+						venn_data.push(JSON.parse($(this).val()));
+					}
+				});
+			v.addData(venn_data);
+			v.compute();
+			$('#' + container + '_venn').width(v.getWidth());
+			v.draw(container + '_venn');
+
+			var leg = $('<div/>', {class: 'venn-legend'});
+			for(var i in v.containers) {
+				var label = $('<div/>', {class: 'label', text: v.containers[i].label});
+				var color = $('<div/>', {class: 'color', css: {
+							'background-color': v.containers[i].bg_color,
+							'border': '1px solid ' + v.containers[i].border_color
+						}});
+				leg.append(color, label);
+			}
+			$('#' + container + '_venn').append(leg);
+		});
+};
 
 /* Create data structure to display data in bar chart -
    using jqPlot library */

@@ -1,0 +1,9 @@
+.venn-legend .color {
+     width: 18px;
+     height: 18px;
+     float: left;
+     margin-right: 5px;
+}
+.venn-legend .label {
+     font-size: 18px;
+}
