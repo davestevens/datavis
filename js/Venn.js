@@ -105,6 +105,9 @@ Venn = (function(params) {
 				this.width = ((this.containers[i].cx + this.containers[i].radius) > this.width) ? (this.containers[i].cx + this.containers[i].radius) : this.width;
 				this.height = ((this.containers[i].cy + this.containers[i].radius) > this.height) ? (this.containers[i].cy + this.containers[i].radius) : this.height;
 			}
+			/* Take into account border size */
+			this.width += 2;
+			this.height += 2;
 		};
 /*
   Output Venn Diagram to div
@@ -505,16 +508,16 @@ Container = (function(params) {
 		{
 			switch(type) {
 				case 'svg':
-					var c = '<circle cx="' + this.cx + '" ' +
-						'cy="' + this.cy + '" ' +
-						'r="' + this.radius + '" ' +
-						'stroke="' + this.border_color + '" ' +
-						'stroke-width="1" ' +
-						'fill="' + this.bg_color + '"/>';
-					return c;
-					break;
+				var c = '<circle cx="' + (this.cx + 1) + '" ' +
+				'cy="' + (this.cy + 1) + '" ' +
+				'r="' + this.radius + '" ' +
+				'stroke="' + this.border_color + '" ' +
+				'stroke-width="1" ' +
+				'fill="' + this.bg_color + '"/>';
+				return c;
+				break;
 				default:
-					console.warn('Unsupported type: ' + type);
+				console.warn('Unsupported type: ' + type);
 				break;
 			}
 			return true;
@@ -540,8 +543,8 @@ Element = (function(params) {
 		{
 			switch(type) {
 				case 'svg':
-				var c = '<circle cx="' + this.cx + '" ' +
-				'cy="' + this.cy + '" ' +
+				var c = '<circle cx="' + (this.cx + 1) + '" ' +
+				'cy="' + (this.cy + 1) + '" ' +
 				'r="' + this.radius + '" ' +
 				'stroke="' + this.border_color + '" ' +
 				'stroke-width="1" ' +
