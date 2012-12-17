@@ -40,12 +40,27 @@ $(document).ready(function() {
 			          //map(extract_data(['latitude', 'longitude', 'user'], data), 'latitude_longitude');
 
 			          /* Favorite Brand / Gender */
-			          weighted_circle_pie(data, ['fav_brand', 'gender'], 'fav_brand_gender', {padding: 2, radius: 80});
+			          //weighted_circle_pie(data, ['fav_brand', 'gender'], 'fav_brand_gender', {padding: 2, radius: 80});
+
+			          /* Favorite Brand / Device */
+			          weighted_circle_pie(data, ['fav_brand', 'device'], 'fav_brand_device', {padding: 2, radius: 80});
 
 			          /* Create global pointer, to make debugging easier */
 			          tmp = data;
 		          });
 	});
+
+/* Sample colors */
+var css_colors = ['rgba(  0,   0,   0, 0.5)',
+                  'rgba(255,   0,   0, 0.5)',
+                  'rgba(  0, 255,   0, 0.5)',
+                  'rgba(255, 255,   0, 0.5)',
+                  'rgba(  0,   0, 255, 0.5)',
+                  'rgba(255,   0, 255, 0.5)',
+                  'rgba(  0, 255, 255, 0.5)',
+                  'rgba(255, 255, 255, 0.5)',
+	];
+var css_color = 0;
 
 var weighted_circle_pie = function(data, sets, container, params)
 {
@@ -64,6 +79,16 @@ var weighted_circle_pie = function(data, sets, container, params)
 		else {
 			c[data[i][sets[0]]][data[i][sets[1]]] = 1;
 		}
+	}
+
+	/* Generate on the fly colors */
+	var a = extract_data(sets[1], data);
+	a = count_instances(a[sets[1]]);
+	for(var i in a) {
+		var style = document.createElement('style');
+		style.type = 'text/css';
+		style.innerHTML = '.' + a[i][0] + ' { background-color: ' + css_colors[(css_color++ % css_colors.length)] + '; }';
+		document.getElementsByTagName('head')[0].appendChild(style);
 	}
 
 	var w = new wCirclesPie(params);
