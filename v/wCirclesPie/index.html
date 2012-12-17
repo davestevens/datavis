@@ -21,13 +21,13 @@
         $.getJSON(data_url,
           function(data) {
       /* Favorite Brand / Gender */
-      weighted_circle_pie(data, ['fav_brand', 'gender'], 'fav_brand_gender', {padding: 2, radius: 80});
+      weighted_circle_pie(data, ['fav_brand', 'gender'], 'fav_brand_gender', {padding: 4, radius: 80});
 
       /* Favorite Brand / Device */
       weighted_circle_pie(data, ['fav_brand', 'device'], 'fav_brand_device', {padding: 2, radius: 80});
 
       /* Device / Gender */
-      weighted_circle_pie(data, ['device', 'gender'], 'device_gender', {padding: 2, radius: 80});
+      weighted_circle_pie(data, ['device', 'gender'], 'device_gender', {padding: 7, radius: 80});
           })
       });
     </script>

@@ -13,9 +13,18 @@ wCircles = (function(params) {
 
 			this.radius = params['radius'] || 100;
 			this.padding = params['padding'] || 0;
-			this.colors = params['colors'] || ['rgba(255, 0, 0, 0.5)',
-			                                   'rgba(0, 255, 0, 0.5)',
-			                                   'rgba(0, 0, 255, 0.5)'];
+			this.colors = params['colors'] || ['rgba(222, 24, 65, 0.75)',
+			                                   'rgba(245, 134, 26, 0.75)',
+			                                   'rgba(245, 222, 26, 0.72)',
+			                                   'rgba(93, 213, 23, 0.75)',
+			                                   'rgba(22, 128, 202, 0.75)',
+			                                   'rgba(96, 22, 202, 0.75)',
+			                                   'rgba(246, 69, 26, 0.75)',
+			                                   'rgba(246, 180, 26, 0.75)',
+			                                   'rgba(214, 235, 25, 0.75)',
+			                                   'rgba(21, 202, 127, 0.75)',
+			                                   'rgba(21, 42, 202, 0.75)',
+			                                   'rgba(202, 22, 189, 0.75)'];
 			this.border_color = params['border_color'] || 'rgba(0, 0, 0, 1)';
 			this.width = 0;
 			this.height = 0;

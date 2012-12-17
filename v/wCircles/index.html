@@ -24,10 +24,10 @@
       weighted_circles(extract_data('fav_brand', data), 'fav_brand', {radius: 85, padding: 1});
 
       /* Device Circles */
-      weighted_circles(extract_data('device', data), 'device');
+      weighted_circles(extract_data('device', data), 'device', {colors: ['#FEC864', '#D25831', '#C1C451', '#82964E', '#60360C']});
 
       /* Slider Circles */
-      weighted_circles(extract_data('slider', data), 'slider', {radius: 30, padding: 5, colors:['rgba(255, 255, 255, 1)']});
+      weighted_circles(extract_data('slider', data), 'slider', {radius: 30, padding: 5});
           })
       });
     </script>
