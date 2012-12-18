@@ -28,10 +28,20 @@ Venn = (function(params) {
 			/* Default parameters */
 
 			/* Colors of containers */
-			this.colors = params['colors'] || ['rgba(255, 0, 0, 0.5)',
-			                                   'rgba(0, 255, 0, 0.5)',
-			                                   'rgba(0, 0, 255, 0.5)'];
-			this.element_color = params['elementColor'] || 'rgba(255, 255, 255, 1)';
+			this.colors = params['colors'] || ['rgba(22, 128, 202, 0.75)',
+			                                   'rgba(222, 24, 65, 0.75)'];
+			this.element_color = params['elementColor'] || 'rgba(255, 255, 255, 0.75)';
+			this.element_filter = '<filter id="dropshadow" height="120%"> \
+    <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>	  \
+    <feOffset dx="-1" dy="1" result="offsetblur"/>	  \
+    <feComponentTransfer>	  \
+      <feFuncA type="linear" slope="0.5"/>	  \
+    </feComponentTransfer>	  \
+    <feMerge>	  \
+      <feMergeNode/>	  \
+      <feMergeNode in="SourceGraphic"/>	  \
+    </feMerge>	  \
+  </filter>';
 
 			/* Largest diameter of Container */
 			this.max_size = params['maxSize'] || 200;
@@ -118,6 +128,7 @@ Venn = (function(params) {
 			switch(this.type) {
 				case 'svg':
 				var el = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="' + this.width + 'px" height="' + this.height + 'px">';
+				el += this.element_filter;
 				for(var i in this.containers) {
 					this.containers[i].setBgColor(this.colors[i]);
 					var c = this.containers[i].draw(this.type);
@@ -548,7 +559,8 @@ Element = (function(params) {
 				'r="' + this.radius + '" ' +
 				'stroke="' + this.border_color + '" ' +
 				'stroke-width="1" ' +
-				'fill="' + this.bg_color + '"/>';
+				'fill="' + this.bg_color + '" ' +
+				'style="filter:url(#dropshadow)" />';
 
 				c += '<text font-family="Verdana" ' +
 				'font-size="' + 10 + '" ' +
