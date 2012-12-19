@@ -125,11 +125,17 @@ wCirclesPie = (function(params) {
 
 						var slice = $('<div/>', {class: 'slice',
 						                         css: {'-webkit-transform': 'rotate(' + total + 'deg)',
+						                               '-moz-transform': 'rotate(' + total + 'deg)',
+						                               '-o-transform': 'rotate(' + total + 'deg)',
+						                               'transform': 'rotate(' + total + 'deg)',
 						                               'width': (this.d[i].radius * 2),
 						                               'height': (this.d[i].radius * 2),
 						                               'clip': 'rect(0px ' + (this.d[i].radius * 2) + 'px '  + (this.d[i].radius * 2) + 'px ' + this.d[i].radius + 'px)'}});
 						var pie = $('<div/>', {class: 'pie ' + j,
 						                       css: {'-webkit-transform': 'rotate(' + sec1 + 'deg)',
+						                             '-moz-transform': 'rotate(' + sec1 + 'deg)',
+						                             '-o-transform': 'rotate(' + sec1 + 'deg)',
+						                             'transform': 'rotate(' + sec1 + 'deg)',
 						                             'width': (this.d[i].radius * 2),
 						                             'height': (this.d[i].radius * 2),
 						                             'clip': 'rect(0px, ' + this.d[i].radius + 'px, ' + (this.d[i].radius * 2) + 'px, 0px)'}});
@@ -139,11 +145,17 @@ wCirclesPie = (function(params) {
 						/* Then the rest */
 						var slice = $('<div/>', {class: 'slice',
 						                         css: {'-webkit-transform': 'rotate(' + (total + sec1) + 'deg)',
+						                               '-moz-transform': 'rotate(' + (total + sec1) + 'deg)',
+						                               '-o-transform': 'rotate(' + (total + sec1) + 'deg)',
+						                               'transform': 'rotate(' + (total + sec1) + 'deg)',
 						                               'width': (this.d[i].radius * 2),
 						                               'height': (this.d[i].radius * 2),
 						                               'clip': 'rect(0px ' + (this.d[i].radius * 2) + 'px '  + (this.d[i].radius * 2) + 'px ' + this.d[i].radius + 'px)'}});
 						var pie = $('<div/>', {class: 'pie ' + j,
 						                       css: {'-webkit-transform': 'rotate(' + sec2 + 'deg)',
+						                             '-moz-transform': 'rotate(' + sec2 + 'deg)',
+						                             '-o-transform': 'rotate(' + sec2 + 'deg)',
+						                             'transform': 'rotate(' + sec2 + 'deg)',
 						                             'width': (this.d[i].radius * 2),
 						                             'height': (this.d[i].radius * 2),
 						                             'clip': 'rect(0px, ' + this.d[i].radius + 'px, ' + (this.d[i].radius * 2) + 'px, 0px)'}});
@@ -153,11 +165,17 @@ wCirclesPie = (function(params) {
 					else {
 						var slice = $('<div/>', {class: 'slice',
 						                         css: {'-webkit-transform': 'rotate(' + total + 'deg)',
+						                               '-moz-transform': 'rotate(' + total + 'deg)',
+						                               '-o-transform': 'rotate(' + total + 'deg)',
+						                               'transform': 'rotate(' + total + 'deg)',
 						                               'width': (this.d[i].radius * 2),
 						                               'height': (this.d[i].radius * 2),
 						                               'clip': 'rect(0px ' + (this.d[i].radius * 2) + 'px '  + (this.d[i].radius * 2) + 'px ' + this.d[i].radius + 'px)'}});
 						var pie = $('<div/>', {class: 'pie ' + j,
 						                       css: {'-webkit-transform': 'rotate(' + (per * 360) + 'deg)',
+						                             '-moz-transform': 'rotate(' + (per * 360) + 'deg)',
+						                             '-o-transform': 'rotate(' + (per * 360) + 'deg)',
+						                             'transform': 'rotate(' + (per * 360) + 'deg)',
 						                             'width': (this.d[i].radius * 2),
 						                             'height': (this.d[i].radius * 2),
 						                             'clip': 'rect(0px, ' + this.d[i].radius + 'px, ' + (this.d[i].radius * 2) + 'px, 0px)'}});
