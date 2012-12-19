@@ -94,7 +94,7 @@ Venn = (function(params) {
 				}
 
 				var largestArea = (Math.PI * Math.pow(this.max_size, 2));
-				for(var i=1;i<this.data.length;++i) {
+				for(var i=0;i<this.data.length;++i) {
 					var diameter = Math.sqrt((largestArea * (this.data[i].data.length/this.data[0].data.length)) / Math.PI);
 					this.containers[i].setRadius(diameter/2);
 				}
@@ -118,6 +118,8 @@ Venn = (function(params) {
 			/* Take into account border size */
 			this.width += 2;
 			this.height += 2;
+			/* Add area for legend */
+			this.height += (this.containers.length * 25);
 		};
 /*
   Output Venn Diagram to div
@@ -139,9 +141,59 @@ Venn = (function(params) {
 					var e = this.elements[i].draw(this.type);
 					el += e;
 				}
+				/* Create a legend */
+				var offset = this.containers.length;
+				for(var i in this.containers) {
+					var box = '<rect ' +
+						'x="0" ' +
+						'y="' + (this.height - (offset * 25)) + '" ' +
+						'width="20" ' +
+						'height="20" ' +
+						'stroke="' + this.containers[i].border_color + '" ' +
+						'stroke-width="1" ' +
+						'fill="' + this.containers[i].bg_color + '" />';
+					var txt = '<text font-family="Verdana" ' +
+						'font-size="' + 18 + '" ' +
+						'x="' + 25 + '" ' +
+						'y="' + ((this.height - (offset * 25)) + 17) + '">' +
+						this.containers[i].label +
+						'</text>';
+					el += box + txt;
+					--offset;
+				}
 				el += '</svg>';
 				$('#' + div).html(el);
 				break;
+				case 'canvas':
+				/* Create a canvas element */
+				var can = '<canvas width="' + this.width + '" height="' + this.height + '"></canvas>';
+				$('#' + div).html(can);
+
+				var ctx = $('#' + div + ' canvas')[0].getContext("2d");
+				for(var i in this.containers) {
+					this.containers[i].setBgColor(this.colors[i]);
+					this.containers[i].draw(this.type, ctx);
+				}
+				for(var i in this.elements) {
+					this.elements[i].setBgColor(this.element_color);
+					this.elements[i].draw(this.type, ctx);
+				}
+				/* Create a legend */
+				var offset = this.containers.length;
+				for(var i in this.containers) {
+					ctx.fillStyle = this.containers[i].bg_color;
+					ctx.strokeStyle = this.containers[i].border_color;
+					ctx.linewidth = 1;
+					ctx.fillRect(0, this.height - (offset * 25), 20, 20);
+					ctx.strokeRect(0, this.height - (offset * 25), 20, 20);
+					ctx.textAlign = 'left';
+					ctx.textBaseline = 'top';
+					ctx.font = '18px Verdana';
+					ctx.strokeText(this.containers[i].label, 25, this.height - (offset * 25));
+					--offset;
+				}
+				break;
+
 				default:
 				console.warn('Unimplemented: ' + this.type);
 				break;
@@ -515,7 +567,7 @@ Container = (function(params) {
 		Container.prototype.constructor = Container;
 
 /* Return element based on type passed */
-		Container.prototype.draw = function(type)
+		Container.prototype.draw = function(type, ctx)
 		{
 			switch(type) {
 				case 'svg':
@@ -526,6 +578,17 @@ Container = (function(params) {
 				'stroke-width="1" ' +
 				'fill="' + this.bg_color + '"/>';
 				return c;
+				break;
+				case 'canvas':
+				ctx.beginPath();
+				ctx.arc((this.cx + 1), (this.cy + 1), this.radius, 0, Math.PI*2, true);
+				ctx.closePath();
+				ctx.fillStyle = this.bg_color;
+				ctx.fill();
+				ctx.linewidth = 1;
+				ctx.strokeStyle = this.border_color;
+				ctx.stroke();
+				return;
 				break;
 				default:
 				console.warn('Unsupported type: ' + type);
@@ -549,8 +612,8 @@ Element = (function(params) {
 		Element.prototype = new Circle;
 		Element.prototype.constructor = Element;
 
-/* Return element based on type passed */
-		Element.prototype.draw = function(type)
+/* Draw Element based on type passed */
+		Element.prototype.draw = function(type, ctx)
 		{
 			switch(type) {
 				case 'svg':
@@ -571,13 +634,29 @@ Element = (function(params) {
 				'</text>';
 				return c;
 				break;
+
+				case 'canvas':
+				ctx.beginPath();
+				ctx.arc((this.cx + 1), (this.cy + 1), this.radius, 0, Math.PI*2, true);
+				ctx.closePath();
+				ctx.fillStyle = this.bg_color;
+				ctx.fill();
+				ctx.linewidth = 1;
+				ctx.strokeStyle = this.border_color;
+				ctx.stroke();
+
+				ctx.font = 'Verdana';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'middle';
+				ctx.strokeText(this.label, this.cx, this.cy);
+				return;
+				break;
 				default:
 				console.warn('Unsupported type: ' + type);
 				break;
 			}
 			return true;
 		};
-
 
 		return Element;
 	})();
