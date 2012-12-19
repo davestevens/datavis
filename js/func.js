@@ -68,7 +68,7 @@ var weighted_circles = function(data, container, params)
 
 /* Prepare data and view for Venn Diagram
  */
-var venn_diagram = function(data, container)
+var venn_diagram = function(data, container, params)
 {
 	/* Requires data in the form {label:'', data:[0,1,2,3]} */
 	var d = [];
@@ -99,7 +99,7 @@ var venn_diagram = function(data, container)
 	/* Link venn-sel select options to trigger new Venn drawing */
 	$('.venn-sel').change(function() {
 			var container = $(this).parent().parent().attr('id');
-			var v = new Venn({elementSize: 18, elementPadding: 2});
+			var v = new Venn(params);
 			var venn_data = [];
 			$('#' + container + ' .venn-sel').each(function() {
 					if($(this).val() != '') {
@@ -110,17 +110,65 @@ var venn_diagram = function(data, container)
 			v.compute();
 			$('#' + container + '_venn').width(v.getWidth());
 			v.draw(container + '_venn');
+		});
+};
 
-			var leg = $('<div/>', {class: 'venn-legend'});
-			for(var i in v.containers) {
-				var label = $('<div/>', {class: 'label', text: v.containers[i].label});
-				var color = $('<div/>', {class: 'color', css: {
-							'background-color': v.containers[i].bg_color,
-							'border': '1px solid ' + v.containers[i].border_color
-						}});
-				leg.append(color, label);
+var venn_diagram_2 = function(data, all_data, container, params)
+{
+	/* Prepare data */
+	var d = [];
+	for(var k in data) {
+		for(i in data[k]) {
+			for(var j in all_data) {
+				if(data[k][i] == all_data[j].user) {
+					var t = [];
+					for(var l in all_data[j]) {
+						if((all_data[j][l] instanceof Object) || (all_data[j][l] == null)) {
+						}
+						else {
+							t.push(all_data[j][l]);
+						}
+					}
+					d.push({label: all_data[j].user, data: t});
+				}
 			}
-			$('#' + container + '_venn').append(leg);
+		}
+	}
+	/* Create html page elements */
+	var cont = $('<div/>', {id: container + '_controls', class: 'chart'});
+
+	/* Create three drop down boxes */
+	var select_l = $('<select/>', {id: container + '_left', class: 'venn-sel2 select-left'});
+	var select_r = $('<select/>', {id: container + '_center', class: 'venn-sel2 select-right'});
+
+	$('<option/>', {value: '', text: 'Select User'}).appendTo(select_l);
+	$('<option/>', {value: '', text: 'Select User'}).appendTo(select_r);
+
+	for(var i in d) {
+		$('<option/>', {value: JSON.stringify(d[i]), text: d[i].label}).appendTo(select_l);
+		$('<option/>', {value: JSON.stringify(d[i]), text: d[i].label}).appendTo(select_r);
+	}
+
+	cont.append(select_l);
+	cont.append(select_r);
+	$('#' + container).append(cont);
+	$('<div/>', {id: container + '_venn', class: 'chart'}).appendTo($('#' + container));
+
+	/* Link venn-sel select options to trigger new Venn drawing */
+
+	$('.venn-sel2').change(function() {
+			var container = $(this).parent().parent().attr('id');
+			var v = new Venn(params);
+			var venn_data = [];
+			$('#' + container + ' .venn-sel2').each(function() {
+					if($(this).val() != '') {
+						venn_data.push(JSON.parse($(this).val()));
+					}
+				});
+			v.addData(venn_data);
+			v.compute();
+			$('#' + container + '_venn').width(v.getWidth());
+			v.draw(container + '_venn');
 		});
 };
 

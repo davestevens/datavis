@@ -21,7 +21,10 @@
         $.getJSON(data_url,
           function(data) {
             /* Check Box Venn Diagram */
-            venn_diagram(extract_data(['user', 'checkbox'], data), 'checkbox');
+            venn_diagram(extract_data(['user', 'checkbox'], data), 'checkbox', {elementSize: 18, elementPadding: 2, type: 'svg'});
+
+            /* User Venn Diagram */
+            venn_diagram_2(extract_data('user', data), data, 'users', {elementSize: 30, elementPadding: 2, maxSize: 400, type: 'canvas'});
           })
       });
     </script>
@@ -38,6 +41,11 @@
 	<h2>Checkbox</h2>
 	<p>Checkbox options compared between two users displayed in Venn Diagram.</p>
 	<div id="checkbox">
+	</div>
+
+	<h2>Users</h2>
+	<p>Checkbox options compared between two users displayed in Venn Diagram.</p>
+	<div id="users">
 	</div>
       </div>
 
