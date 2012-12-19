@@ -152,7 +152,7 @@ var venn_diagram_2 = function(data, all_data, container, params)
 	cont.append(select_l);
 	cont.append(select_r);
 	$('#' + container).append(cont);
-	$('<div/>', {id: container + '_venn', class: 'chart'}).appendTo($('#' + container));
+	$('<div/>', {id: container + '_venn', css: {margin: '0 auto'}}).appendTo($('#' + container));
 
 	/* Link venn-sel select options to trigger new Venn drawing */
 
