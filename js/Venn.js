@@ -636,6 +636,11 @@ Element = (function(params) {
 				break;
 
 				case 'canvas':
+				ctx.shadowOffsetX = -1;
+				ctx.shadowOffsetY = 1;
+				ctx.shadowBlur = 10;
+				ctx.shadowColor = "black";
+
 				ctx.beginPath();
 				ctx.arc((this.cx + 1), (this.cy + 1), this.radius, 0, Math.PI*2, true);
 				ctx.closePath();
@@ -645,6 +650,7 @@ Element = (function(params) {
 				ctx.strokeStyle = this.border_color;
 				ctx.stroke();
 
+				ctx.shadowColor = "none";
 				ctx.font = 'Verdana';
 				ctx.textAlign = 'center';
 				ctx.textBaseline = 'middle';
